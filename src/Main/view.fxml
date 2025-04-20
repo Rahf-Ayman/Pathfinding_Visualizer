@@ -20,7 +20,7 @@
    <left>
       <VBox alignment="TOP_CENTER" minWidth="180.0" prefHeight="391.0" prefWidth="170.0" style="-fx-text-fill: #ffffff;" BorderPane.alignment="CENTER">
          <children>
-            <JFXComboBox fx:id="algoOptions" accessibleRole="CHECK_BOX" blendMode="COLOR_DODGE" focusColor="#cabfff" prefHeight="43.0" prefWidth="197.0" promptText="Algorithms" style="-fx-font-size: 20px;" unFocusColor="#0bd7d3">
+            <JFXComboBox fx:id="algoOptions" focusColor="#ffd2bf" prefHeight="43.0" prefWidth="197.0" promptText="Select algorithms" style="-fx-text-fill: #f7dc6f;" unFocusColor="#96dfde">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
@@ -110,7 +110,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" minHeight="100.0" minWidth="200.0" prefHeight="106.0" prefWidth="160.0" style="-fx-text-fill: #ffffff; -fx-font-size: 22px;" text="Pathfinding Visualizer" textAlignment="CENTER" wrapText="true">
+            <Label alignment="CENTER" minWidth="180.0" prefHeight="106.0" prefWidth="160.0" style="-fx-text-fill: #ffffff;" text="Pathfinding Visualizer" textAlignment="CENTER" wrapText="true">
                <font>
                   <Font size="15.0" />
                </font>

@@ -53,7 +53,7 @@ public class Controller implements Initializable {
             selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
             switch (selectedAlgo) {
                 case 0: case 1:
-                    clearWeight();
+                    clearWeight(); // no weight for DFS ,BFS
                     weightButton.setDisable(true);
                     break;
                 case 2:
@@ -327,7 +327,7 @@ public class Controller implements Initializable {
 
         if (Constants.currentThread == null && currentST[0][0] != -1 && currentST[1][0] != -1 && selectedAlgo != -1) {
             // Disable all button, disable draw mode
-            applyColor = false;
+            applyColor = false; // draw mode 
             toggleButton(false);
             currentState = null;
             Algorithm algorithm = null;
