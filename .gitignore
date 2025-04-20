@@ -1,0 +1,8 @@
+.vscode/
+.idea/
+out/
+bin/
+/shelf/
+*.xml
+*.html
+*.iml
