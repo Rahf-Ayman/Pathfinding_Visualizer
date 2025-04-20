@@ -118,9 +118,11 @@ public class Controller implements Initializable {
 
     public void gridInit() {
         RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setPercentHeight(100.0 / Constants.ROW);
+        rowConstraints.setPrefHeight(20);
+        // rowConstraints.setPercentHeight(100.0 / Constants.ROW);
         ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(100.0 / Constants.COL);
+        columnConstraints.setPrefWidth(20);
+        // columnConstraints.setPercentWidth(100.0 / Constants.COL);
         for (int i = 0; i < Constants.ROW; i++)
             platform.getRowConstraints().add(rowConstraints);
         for (int i = 0; i < Constants.COL; i++)

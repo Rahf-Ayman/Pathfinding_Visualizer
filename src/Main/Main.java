@@ -16,10 +16,10 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("sample.fxml"));
         Parent root = loader.load();
 
-        primaryStage.setTitle("Algorithms Visualizer");
+        primaryStage.setTitle("Pathfinding Visualizer");
         Scene mainScene = new Scene(root, 800, 625);
         primaryStage.setScene(mainScene);
-        primaryStage.getIcons().add(new Image("/Icons/path.png"));
+        primaryStage.getIcons().add(new Image("/Icons/version.png"));
         Constants.stopButton = (JFXButton) mainScene.lookup("#stopButton");
         Constants.mazeButton = (JFXButton) mainScene.lookup("#mazeButton");
 
