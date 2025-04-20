@@ -10,7 +10,7 @@ import Main.Animation.BounceIn;
 
 import Main.GraphRelated.Cell;
 import Main.GraphRelated.CellState;
-import Main.MazeGenerator.MazeGenerator;
+// import Main.MazeGenerator.MazeGenerator;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -415,14 +415,14 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
-    public void mazeBtnEvent(ActionEvent actionEvent) {
-        currentST[0][0]=-1;
-        currentST[1][0]=-1;
-        MazeGenerator mazeGenerator = new MazeGenerator();
-        mazeGenerator.start();
+    // @FXML
+    // public void mazeBtnEvent(ActionEvent actionEvent) {
+    //     currentST[0][0]=-1;
+    //     currentST[1][0]=-1;
+    //     MazeGenerator mazeGenerator = new MazeGenerator();
+    //     mazeGenerator.start();
 
-        System.out.println("Thread drawing maze kill...");
-        mazeGenerator.interrupt();
-    }
+    //     System.out.println("Thread drawing maze kill...");
+    //     mazeGenerator.interrupt();
+    // }
 }
