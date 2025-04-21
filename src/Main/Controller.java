@@ -34,7 +34,7 @@ public class Controller implements Initializable {
     @FXML
     private GridPane platform;
     @FXML
-    private JFXButton sourceButton, wallButton, unvisitedButton, targetButton, weightButton, startButton, stopButton, clearButton, clearPathButton, pauseButton, mazeButton;
+    private JFXButton sourceButton, wallButton, unvisitedButton, targetButton, weightButton, startButton, stopButton, clearButton, clearPathButton, pauseButton;
 
     public static BorderPane[][] BorderGrid = new BorderPane[Constants.ROW][Constants.COL];
     public static Cell[][] CellGrid = new Cell[Constants.ROW][Constants.COL];
@@ -79,7 +79,7 @@ public class Controller implements Initializable {
         pauseButton.setAlignment(Pos.CENTER_LEFT);
         wallButton.setAlignment(Pos.CENTER_LEFT);
         weightButton.setAlignment(Pos.CENTER_LEFT);
-        mazeButton.setAlignment(Pos.CENTER_LEFT);
+        
 
         for (int i = 0; i < 2; i++) currentST[i][0] = -1;
 
@@ -288,7 +288,7 @@ public class Controller implements Initializable {
         startButton.setDisable(!logic);
         clearPathButton.setDisable(!logic);
         clearButton.setDisable(!logic);
-        mazeButton.setDisable(!logic);
+        
     }
 
     // Events
@@ -415,14 +415,4 @@ public class Controller implements Initializable {
         }
     }
 
-    // @FXML
-    // public void mazeBtnEvent(ActionEvent actionEvent) {
-    //     currentST[0][0]=-1;
-    //     currentST[1][0]=-1;
-    //     MazeGenerator mazeGenerator = new MazeGenerator();
-    //     mazeGenerator.start();
-
-    //     System.out.println("Thread drawing maze kill...");
-    //     mazeGenerator.interrupt();
-    // }
 }
