@@ -10,7 +10,7 @@ import Main.Animation.BounceIn;
 
 import Main.GraphRelated.Cell;
 import Main.GraphRelated.CellState;
-import Main.MazeGenerator.MazeGenerator;
+// import Main.MazeGenerator.MazeGenerator;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -34,7 +34,7 @@ public class Controller implements Initializable {
     @FXML
     private GridPane platform;
     @FXML
-    private JFXButton sourceButton, wallButton, unvisitedButton, targetButton, weightButton, startButton, stopButton, clearButton, clearPathButton, pauseButton, mazeButton;
+    private JFXButton sourceButton, wallButton, unvisitedButton, targetButton, weightButton, startButton, stopButton, clearButton, clearPathButton, pauseButton;
 
     public static BorderPane[][] BorderGrid = new BorderPane[Constants.ROW][Constants.COL];
     public static Cell[][] CellGrid = new Cell[Constants.ROW][Constants.COL];
@@ -53,7 +53,7 @@ public class Controller implements Initializable {
             selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
             switch (selectedAlgo) {
                 case 0: case 1:
-                    clearWeight();
+                    clearWeight(); // no weight for DFS ,BFS
                     weightButton.setDisable(true);
                     break;
                 case 2:
@@ -79,7 +79,7 @@ public class Controller implements Initializable {
         pauseButton.setAlignment(Pos.CENTER_LEFT);
         wallButton.setAlignment(Pos.CENTER_LEFT);
         weightButton.setAlignment(Pos.CENTER_LEFT);
-        mazeButton.setAlignment(Pos.CENTER_LEFT);
+        
 
         for (int i = 0; i < 2; i++) currentST[i][0] = -1;
 
@@ -118,9 +118,11 @@ public class Controller implements Initializable {
 
     public void gridInit() {
         RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setPercentHeight(100.0 / Constants.ROW);
+        rowConstraints.setPrefHeight(20);
+        // rowConstraints.setPercentHeight(100.0 / Constants.ROW);
         ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPercentWidth(100.0 / Constants.COL);
+        columnConstraints.setPrefWidth(20);
+        // columnConstraints.setPercentWidth(100.0 / Constants.COL);
         for (int i = 0; i < Constants.ROW; i++)
             platform.getRowConstraints().add(rowConstraints);
         for (int i = 0; i < Constants.COL; i++)
@@ -286,7 +288,7 @@ public class Controller implements Initializable {
         startButton.setDisable(!logic);
         clearPathButton.setDisable(!logic);
         clearButton.setDisable(!logic);
-        mazeButton.setDisable(!logic);
+        
     }
 
     // Events
@@ -325,7 +327,7 @@ public class Controller implements Initializable {
 
         if (Constants.currentThread == null && currentST[0][0] != -1 && currentST[1][0] != -1 && selectedAlgo != -1) {
             // Disable all button, disable draw mode
-            applyColor = false;
+            applyColor = false; // draw mode 
             toggleButton(false);
             currentState = null;
             Algorithm algorithm = null;
@@ -413,14 +415,4 @@ public class Controller implements Initializable {
         }
     }
 
-    @FXML
-    public void mazeBtnEvent(ActionEvent actionEvent) {
-        currentST[0][0]=-1;
-        currentST[1][0]=-1;
-        MazeGenerator mazeGenerator = new MazeGenerator();
-        mazeGenerator.start();
-
-        System.out.println("Thread drawing maze kill...");
-        mazeGenerator.interrupt();
-    }
 }

@@ -8,15 +8,15 @@ import com.jfoenix.controls.JFXButton;
 public class Constants
 {
     // Design preference
-    public static final int ROW = 41, COL = 61;
+    public static final int ROW = 30, COL = 40;
    //public static final int  = 30, COL = 40;
 
     //Colors
     public static final String BORDER = "black";
     public static final String WALL = "#202040";
     public static final String UNVISITED = "#fffff0";
-    public static final String SOURCE =   "/Icons/source.png";
-    public static final String TARGET =  "/Icons/target.png";
+    public static final String SOURCE =   "/Icons/source1.png";
+    public static final String TARGET =  "/Icons/target1.png";
     public static final String VISITED = "f96d80"; // "#fbcffc";
     public static final String NEXT_VISIT = "#fab7b7"; //"ff9a76"; //"#b4de87";
     public static final String SHORTEST = "#f1f5a2";
