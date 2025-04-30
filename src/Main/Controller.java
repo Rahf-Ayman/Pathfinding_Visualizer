@@ -5,6 +5,7 @@ import Main.Algorithms.BreadthFirst;
 import Main.Algorithms.DepthFirst;
 
 import Main.Algorithms.Dijkstra;
+import Main.Algorithms.DijkstraDivide;
 
 import Main.Animation.BounceIn;
 
@@ -48,7 +49,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        algoOptions.getItems().addAll("Breadth First Search", "Depth First Search", "Dijkstra Algorithm");
+        algoOptions.getItems().addAll("Breadth First Search", "Depth First Search", "Dijkstra Algorithm" , "Dijkstra Divide");
         algoOptions.setOnAction(e -> {
             selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
             switch (selectedAlgo) {
@@ -56,7 +57,7 @@ public class Controller implements Initializable {
                     clearWeight(); // no weight for DFS ,BFS
                     weightButton.setDisable(true);
                     break;
-                case 2:
+                case 2 , 3:
                     weightButton.setDisable(false);
                     break;
             }
@@ -118,10 +119,10 @@ public class Controller implements Initializable {
 
     public void gridInit() {
         RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setPrefHeight(20);
+        rowConstraints.setPrefHeight(Constants.CELL_SIZE);
         // rowConstraints.setPercentHeight(100.0 / Constants.ROW);
         ColumnConstraints columnConstraints = new ColumnConstraints();
-        columnConstraints.setPrefWidth(20);
+        columnConstraints.setPrefWidth(Constants.CELL_SIZE);
         // columnConstraints.setPercentWidth(100.0 / Constants.COL);
         for (int i = 0; i < Constants.ROW; i++)
             platform.getRowConstraints().add(rowConstraints);
@@ -344,6 +345,10 @@ public class Controller implements Initializable {
                     break;
                 case 2:
                     algorithm = new Dijkstra();
+                    weightButton.setDisable(false);
+                    break;
+                case 3:
+                    algorithm = new DijkstraDivide();
                     weightButton.setDisable(false);
                     break;
             }

@@ -29,4 +29,9 @@ public class Cell {
         this.parent_y = y;
     }
 
+    public boolean equal(Cell cell)
+    {
+        return (x == cell.x) && (y == cell.y);
+    }
+
 }

@@ -1,16 +1,18 @@
 package Main.Algorithms;
 
 import Main.Configurations.Constants;
-import Main.Controller;
-import Main.GraphRelated.Cell;
-import Main.GraphRelated.CellState;
-import Main.GraphRelated.Direction;
 
 import java.util.LinkedList;
 
-public class Dijkstra extends Algorithm {
+import Main.Controller;
+import Main.GraphRelated.Block;
+import Main.GraphRelated.Cell;
+import Main.GraphRelated.CellState;
+import Main.GraphRelated.Direction;
+import Main.GraphRelated.Portal;
 
-
+public class DijkstraDivide extends Algorithm
+{
     public Cell updateNode(Cell currNode, Cell nextNode) {
 
 
@@ -107,18 +109,19 @@ public class Dijkstra extends Algorithm {
         return nextNode;
     }
 
-
-    @Override
-    public void run() {
+    public void runDijkstra(Block block, Cell source, Cell target) {
+        
+        boolean localpathFound = false ;
         LinkedList<Cell> queue = new LinkedList<>();
         Cell current, tmp;
         queue.clear();
         source.distance = 0;
         source.direction = Direction.RIGHT;
+        
         queue.add(source);
         try {
             // pop the waiting queue
-            while (!queue.isEmpty() && !pathFound) {
+            while (!queue.isEmpty() && !localpathFound) {
                 Thread.sleep(Constants.THREAD_SLEEP_TIME);
                 if (!Constants.isPause) {
                     current = queue.poll();
@@ -127,7 +130,7 @@ public class Dijkstra extends Algorithm {
                         current.count -= 1;
                         queue.add(current);
                     } else {
-                        if (current.state != CellState.SOURCE) {
+                        if (!current.equal(source)) {
                             if (current.weighted) {
                                 Controller.paintBlock(current.x, current.y, Constants.BORDER, Constants.WEIGHT);
                                 current.distance += Constants.WEIGHT_COUNT;
@@ -137,18 +140,18 @@ public class Dijkstra extends Algorithm {
 
                         //Go to all neighbors of the current state and push into queue if path not found
 
-                        for (int i = 0; i < Constants.NUM_OF_NEIGHBORS && !pathFound; i++) {
-                            if (inRange(current.x + X[i], current.y + Y[i])) {
+                        for (int i = 0; i < Constants.NUM_OF_NEIGHBORS && !localpathFound; i++) {
+                            if (inBlockRange(block ,current.x + X[i], current.y + Y[i])) {
                                 tmp = Controller.CellGrid[current.x + X[i]][current.y + Y[i]];
 
                                 if (tmp.state != CellState.WALL) {
                                     tmp = updateNode(current, tmp);
-                                    if (tmp.state == CellState.TARGET || tmp.state == CellState.UNVISITED
+                                    if (tmp.equal(target) || tmp.state == CellState.UNVISITED
                                             || tmp.state == CellState.WEIGHT) {
 
                                         if (tmp.count == 0 || tmp.count == Constants.WEIGHT_COUNT) {
 
-                                            if (tmp.state != CellState.TARGET) {
+                                            if (!tmp.equal(target)) {
                                                 Controller.paintBlock(tmp.x, tmp.y, Constants.BORDER, Constants.NEXT_VISIT);
                                                 if (tmp.weighted) {
                                                     Controller.paintBlock(tmp.x, tmp.y, Constants.BORDER, Constants.WEIGHT);
@@ -156,8 +159,8 @@ public class Dijkstra extends Algorithm {
                                             } else {
                                                 Cell tmp_parent;
                                                 int min_dist = Integer.MAX_VALUE;
-                                                for (int j = 0; j < Constants.NUM_OF_NEIGHBORS && !pathFound; j++) {
-                                                    if (inRange(tmp.x + X[j], tmp.y + Y[j])) {
+                                                for (int j = 0; j < Constants.NUM_OF_NEIGHBORS && !localpathFound; j++) {
+                                                    if (inBlockRange(block ,tmp.x + X[j], tmp.y + Y[j])) {
                                                         tmp_parent = Controller.CellGrid[tmp.x + X[j]][tmp.y + Y[j]];
                                                         if (tmp_parent.distance < min_dist) {
                                                             min_dist = tmp_parent.distance;
@@ -166,43 +169,87 @@ public class Dijkstra extends Algorithm {
                                                         }
                                                     }
                                                 }
+                                                // System.out.println("Next cell state trath: " + tmp.x + " " + tmp.y + " " + tmp.parent_x + " " + tmp.parent_y); //Just for debug
                                                 tracePath(tmp);
                                                 //shortestPath = tmp.distance;
-                                                pathFound = true;
+                                                localpathFound = true;
                                                 break;
                                             }
 
                                             Controller.CellGrid[tmp.x][tmp.y].state = CellState.VISITED;
                                             queue.add(tmp);
+                                            // System.out.println("Next cell state: " + tmp.x + " " + tmp.y + " " + tmp.parent_x + " " + tmp.parent_y); //Just for debug
                                         }
                                     }
                                 }
                             }
                         }
+                        
+                        
                     }
                 } else
                     Thread.sleep(Constants.THREAD_PAUSE_TIME);
-            } if (!pathFound) {
-                System.out.println("No path available!\nDijkstra Search Algorithm Finish\n");
-                killThread();
-            }
+            } 
         } catch (Exception e) {
 //            e.printStackTrace();
-            System.out.println("Thread interrupted while sleeping");
+            System.out.println("tThread interrupted while sleeping");
         }
+        
+
     }
 
-    public void tracePath(Cell cell) { // cell target
-        //System.out.println("tracing...");
-        LinkedList<Cell> shortestPath = new LinkedList<Cell>();
+    public boolean inBlockRange(Block block , int r , int c)
+    {
+        return (r >= block.startX && r < block.startX + Constants.BLOCK_SIZE) && (c >= block.startY && c < block.startY + Constants.BLOCK_SIZE);
+    }
 
-        while (cell.state != CellState.SOURCE) {
-            shortestPath.addFirst(cell);
-            cell = Controller.CellGrid[cell.parent_x][cell.parent_y];
-        }
-        colorPath(shortestPath, Constants.SHORTEST, true);
+    
+    @Override
+    public void run() {
+        
+        Block startBlock = Block.getBlock(source);
+        Block targetBlock = Block.getBlock(target);
 
-        System.out.println("Dijkstra Search Algorithm Finished.");
+        Cell[][] startGrid = startBlock.cells;
+        Cell startNode = startGrid[source.x - startBlock.startX][source.y - startBlock.startY];
+        Portal startPortal = startBlock.getNearestPortal(startNode);
+        Cell startPortalNode = startGrid[startPortal.x - startBlock.startX][startPortal.y - startBlock.startY];
+        
+        
+
+        Cell[][] goalGrid = targetBlock.cells;
+        Cell goalNode = goalGrid[target.x - targetBlock.startX][target.y - targetBlock.startY];
+        Portal goalPortal = targetBlock.getNearestPortal(goalNode);
+        Cell goalPortalNode = goalGrid[goalPortal.x - targetBlock.startX][goalPortal.y - targetBlock.startY];
+        
+        
+        runDijkstra(startBlock, startNode , startPortalNode);
+        goalPortalNode.state = CellState.SOURCE;
+        System.out.println("Start cell state: " + goalPortalNode.x + " " + goalPortalNode.y ); //Just for debug
+        Controller.paintBlock(goalPortalNode.x, goalPortalNode.y, Constants.BORDER, Constants.SOURCE);
+        runDijkstra(targetBlock, goalPortalNode , goalNode);
         killThread();
     }
+    
+    public void tracePath(Cell cell) {
+        LinkedList<Cell> shortestPath = new LinkedList<Cell>();
+        
+        Cell pre = null;
+        while (cell.state != CellState.SOURCE  ) {
+            // System.out.println("Cell: " + cell.x + " " + cell.y ); //Just for debug
+            if(pre != null && cell.parent_x == pre.x && cell.parent_y == pre.y) {
+                break;
+            }
+            shortestPath.addFirst(cell);
+
+            pre = cell;
+            cell = Controller.CellGrid[cell.parent_x][cell.parent_y];
+            
+        }
+        // System.out.println(shortestPath); //Just for debug
+        colorPath(shortestPath, Constants.SHORTEST, true);
+        System.out.println("Dijkstra Divide Search Algorithm Finish");
+        
+    }
+    
 }

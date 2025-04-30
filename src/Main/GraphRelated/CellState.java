@@ -9,4 +9,6 @@ public enum CellState {
     TARGET,
     SOURCE,
     WEIGHT,
+    START,
+    END,
 }

@@ -8,7 +8,9 @@ import com.jfoenix.controls.JFXButton;
 public class Constants
 {
     // Design preference
-    public static final int ROW = 30, COL = 40;
+    public static final int ROW = 40, COL = 40;
+    public static final int CELL_SIZE = 20;
+    public static final int BLOCK_SIZE = 10; // size of each block in the grid
    //public static final int  = 30, COL = 40;
 
     //Colors
