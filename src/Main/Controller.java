@@ -48,7 +48,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        algoOptions.getItems().addAll("Breadth First Search", "Depth First Search", "Dijkstra Algorithm", "A* Algorithm");
+        algoOptions.getItems().addAll("BFS", "DFS", "Dijkstra", "A*");
 algoOptions.setOnAction(e -> {
     selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
     switch (selectedAlgo) {
@@ -348,10 +348,11 @@ algoOptions.setOnAction(e -> {
                     break;
                 case 2:
                     algorithm = new Dijkstra();
-                    weightButton.setDisable(false);
+                    weightButton.setDisable(true);
                     break;
                 case 3:
                     algorithm = new AStar();
+                    weightButton.setDisable(true);
                     break;
 
             }
