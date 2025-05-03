@@ -1,9 +1,9 @@
 package Main;
 
+import Main.Algorithms.AStar;
 import Main.Algorithms.Algorithm;
 import Main.Algorithms.BreadthFirst;
 import Main.Algorithms.DepthFirst;
-
 import Main.Algorithms.Dijkstra;
 
 import Main.Animation.BounceIn;
@@ -48,20 +48,24 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        algoOptions.getItems().addAll("Breadth First Search", "Depth First Search", "Dijkstra Algorithm");
-        algoOptions.setOnAction(e -> {
-            selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
-            switch (selectedAlgo) {
-                case 0: case 1:
-                    clearWeight(); // no weight for DFS ,BFS
-                    weightButton.setDisable(true);
-                    break;
-                case 2:
-                    weightButton.setDisable(false);
-                    break;
-            }
-            startButton.setDisable(false);
-        });
+        algoOptions.getItems().addAll("Breadth First Search", "Depth First Search", "Dijkstra Algorithm", "A* Algorithm");
+algoOptions.setOnAction(e -> {
+    selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
+    switch (selectedAlgo) {
+        case 0: case 1:
+            clearWeight(); // no weight for DFS ,BFS
+            weightButton.setDisable(true);
+            break;
+        case 2:
+            weightButton.setDisable(false);
+            break;
+        case 3: // A* algorithm
+            weightButton.setDisable(false);
+            break;
+    }
+    startButton.setDisable(false);
+});
+
 
         gridInit();
 
@@ -346,6 +350,10 @@ public class Controller implements Initializable {
                     algorithm = new Dijkstra();
                     weightButton.setDisable(false);
                     break;
+                case 3:
+                    algorithm = new AStar();
+                    break;
+
             }
 
             Constants.currentThread = algorithm;
