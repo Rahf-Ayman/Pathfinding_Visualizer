@@ -17,7 +17,7 @@ public class Constants
     public static final String UNVISITED = "#fffff0";
     public static final String SOURCE =   "/Icons/source.png";
     public static final String TARGET =  "/Icons/target.png";
-    public static final String VISITED = "f96d80"; 
+    public static final String VISITED = "#f96d80"; 
     public static final String NEXT_VISIT = "#fab7b7"; 
     public static final String SHORTEST = "#f1f5a2";
     public static final String WEIGHT = "#0e9aa7";
