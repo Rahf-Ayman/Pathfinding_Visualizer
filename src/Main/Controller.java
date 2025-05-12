@@ -253,7 +253,7 @@ public class Controller implements Initializable {
 
             }
         }
-        //resetCount();
+        
         // repaint the source and target point
         paintBlock(currentST[0][0], currentST[0][1], Constants.BORDER, Constants.SOURCE);
         paintBlock(currentST[1][0], currentST[1][1], Constants.BORDER, Constants.TARGET);

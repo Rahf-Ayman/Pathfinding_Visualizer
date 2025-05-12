@@ -1,7 +1,6 @@
 package Main.Configurations;
 
 import Main.Algorithms.Algorithm;
-//import Main.Controller;
 import com.jfoenix.controls.JFXButton;
 
 // Class contains all the constant used through out the project

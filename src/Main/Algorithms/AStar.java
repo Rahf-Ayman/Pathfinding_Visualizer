@@ -5,7 +5,6 @@ import Main.Controller;
 import Main.GraphRelated.Cell;
 import Main.GraphRelated.CellState;
 import Main.GraphRelated.Direction;
-
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Comparator;

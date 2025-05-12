@@ -5,7 +5,6 @@ import Main.Controller;
 import Main.GraphRelated.Cell;
 import Main.GraphRelated.CellState;
 import Main.GraphRelated.Direction;
-
 import java.util.LinkedList;
 
 public class Dijkstra extends Algorithm {
@@ -167,7 +166,7 @@ public class Dijkstra extends Algorithm {
                                                     }
                                                 }
                                                 tracePath(tmp);
-                                                //shortestPath = tmp.distance;
+                                                
                                                 pathFound = true;
                                                 break;
                                             }
@@ -187,13 +186,11 @@ public class Dijkstra extends Algorithm {
                 killThread();
             }
         } catch (Exception e) {
-//            e.printStackTrace();
             System.out.println("Thread interrupted while sleeping");
         }
     }
 
     public void tracePath(Cell cell) {
-        //System.out.println("tracing...");
         LinkedList<Cell> shortestPath = new LinkedList<Cell>();
 
         while (cell.state != CellState.SOURCE) {
