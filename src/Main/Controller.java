@@ -2,15 +2,10 @@ package Main;
 
 import Main.Algorithms.AStar;
 import Main.Algorithms.Algorithm;
-import Main.Algorithms.BreadthFirst;
-import Main.Algorithms.DepthFirst;
 import Main.Algorithms.Dijkstra;
-
 import Main.Animation.BounceIn;
-
 import Main.GraphRelated.Cell;
 import Main.GraphRelated.CellState;
-// import Main.MazeGenerator.MazeGenerator;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -22,7 +17,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
 import javafx.event.ActionEvent;
 import Main.Configurations.Constants;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -48,24 +42,19 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        algoOptions.getItems().addAll("BFS", "DFS", "Dijkstra", "A*");
-algoOptions.setOnAction(e -> {
-    selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
-    switch (selectedAlgo) {
-        case 0: case 1:
-            clearWeight(); // no weight for DFS ,BFS
-            weightButton.setDisable(true);
-            break;
-        case 2:
-            weightButton.setDisable(false);
-            break;
-        case 3: // A* algorithm
-            weightButton.setDisable(false);
-            break;
-    }
-    startButton.setDisable(false);
-});
-
+        algoOptions.getItems().addAll("Dijkstra", "A*");
+        algoOptions.setOnAction(e -> {
+            selectedAlgo = algoOptions.getSelectionModel().getSelectedIndex();
+            switch (selectedAlgo) {
+                case 0:
+                    weightButton.setDisable(false);
+                    break;
+                case 1: // A* algorithm
+                    weightButton.setDisable(false);
+                    break;
+            }
+            startButton.setDisable(false);
+        });
 
         gridInit();
 
@@ -112,21 +101,14 @@ algoOptions.setOnAction(e -> {
         double marginTopBottom = (containerHeight - gridHeight) / 2;
         double marginLeftRight = (containerWidth - gridWidth) / 2;
 
-//        AnchorPane.setRightAnchor(platform, anchorLeftRight);
-//        AnchorPane.setLeftAnchor(platform, anchorLeftRight);
-//        AnchorPane.setTopAnchor(platform, anchorTopBottom);
-//        AnchorPane.setBottomAnchor(platform, anchorTopBottom);
-
         platform.setPadding(new Insets(marginTopBottom, marginLeftRight, marginTopBottom, marginLeftRight));
     }
 
     public void gridInit() {
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPrefHeight(20);
-        // rowConstraints.setPercentHeight(100.0 / Constants.ROW);
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPrefWidth(20);
-        // columnConstraints.setPercentWidth(100.0 / Constants.COL);
         for (int i = 0; i < Constants.ROW; i++)
             platform.getRowConstraints().add(rowConstraints);
         for (int i = 0; i < Constants.COL; i++)
@@ -180,7 +162,7 @@ algoOptions.setOnAction(e -> {
                     paintBlock(x, y, Constants.BORDER, Constants.SOURCE);
                 }
             } else if (currentState == CellState.TARGET) {
-//                System.out.println("Current state: Target");
+
                 if (CellGrid[x][y].state == CellState.TARGET) {
                     unvisitCell(1);
                 } else if (CellGrid[x][y].state == CellState.UNVISITED) {
@@ -339,18 +321,10 @@ algoOptions.setOnAction(e -> {
 
             switch (selectedAlgo) {
                 case 0:
-                    clearWeight();
-                    algorithm = new BreadthFirst();
-                    break;
-                case 1:
-                    clearWeight();
-                    algorithm = new DepthFirst();
-                    break;
-                case 2:
                     algorithm = new Dijkstra();
                     weightButton.setDisable(true);
                     break;
-                case 3:
+                case 1:
                     algorithm = new AStar();
                     weightButton.setDisable(true);
                     break;

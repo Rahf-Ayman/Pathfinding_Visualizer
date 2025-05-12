@@ -5,7 +5,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-//import javafx.util.Duration;
+
 
 
 public abstract class CustomAnimation {
@@ -20,12 +20,6 @@ public abstract class CustomAnimation {
     }
 
     private CustomAnimation onFinished() {
-//        if (reset) {
-//            resetNode();
-//        }
-//        if (this.nextAnimation != null) {
-//            this.nextAnimation.play();
-//        }
         return this;
     }
 

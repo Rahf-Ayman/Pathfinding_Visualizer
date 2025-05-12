@@ -9,7 +9,7 @@ public class Constants
 {
     // Design preference
     public static final int ROW = 30, COL = 40;
-   //public static final int  = 30, COL = 40;
+
 
     //Colors
     public static final String BORDER = "black";
@@ -23,10 +23,10 @@ public class Constants
     public static final String WEIGHT = "#0e9aa7";
     public static final String WEIGHT_IN_PATH = "#ffc40c";
 
-    //public static final String VISITED2 = "#501B1D";
+
 
     // Algorithm related
-    public static int THREAD_SLEEP_TIME = 30; // milisecs, TODO: use this to increase or decrease visualization's speed.
+    public static int THREAD_SLEEP_TIME = 30; // milisecs, use this to increase or decrease visualization's speed.
     public static int THREAD_PAUSE_TIME = 1000;
     public static int THREAD_SLEEP_TIME_MAZE = 10;
 
