@@ -4,7 +4,6 @@ import Main.Configurations.Constants;
 import Main.Controller;
 import Main.GraphRelated.Cell;
 import Main.GraphRelated.CellState;
-
 import java.util.LinkedList;
 
 // Similar Part For All Algorithm
@@ -52,9 +51,7 @@ public class Algorithm extends Thread {
                         Controller.paintBlock(previous.x, previous.y, Constants.BORDER, Constants.WEIGHT_IN_PATH);
                     else Controller.paintBlock(previous.x, previous.y, Constants.BORDER, color);
                 }
-//                if(current.weighted)
-//                    Controller.paintBlock(current.x, current.y, Constants.BORDER, Constants.WEIGHT_IN_PATH);
-//                else
+
                 Controller.paintBlock(current.x, current.y, Constants.BORDER, Constants.SOURCE);
                 current.state = CellState.SHORTEST;
 
