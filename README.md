@@ -1,6 +1,6 @@
 # 🧭 Pathfinding Visualizer
 
-An interactive JavaFX-based pathfinding visualizer that demonstrates algorithms like Dijkstra’s, BFS, and DFS. The visualizer includes direction-aware movement, weighted cells, and real-time animation for educational or debugging purposes.
+An interactive JavaFX-based pathfinding visualizer that demonstrates Dijkstra and A* algorithms. The visualizer includes direction-aware movement, weighted cells, and real-time animation for educational or debugging purposes.
 
 ## 🚀 Features
 - Visualize pathfinding algorithms step-by-step
